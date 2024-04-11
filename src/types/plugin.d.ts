@@ -11,9 +11,10 @@ declare namespace Plugin {
   type ConfigV1 = {
     version: 1;
     conditions: {
-      memo: string;
-      fields: string[];
-      isSampleUIShown: boolean;
+      cacheId: string;
+      targetFieldCode: string;
+      srcAppId: string;
+      srcFieldCode: string;
     }[];
   };
 }

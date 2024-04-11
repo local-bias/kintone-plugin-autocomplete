@@ -1,8 +1,8 @@
 // @ts-check
 const hp = 'https://konomi.app';
 const cdn = 'https://kintone-plugin.konomi.app';
-const key = 'template';
-const localhost = 'https://127.0.0.1:65535';
+const key = 'autocomplete';
+const localhost = 'https://127.0.0.1:35327';
 
 /** @satisfies { import('@konomi-app/kintone-utilities').PluginConfig } */
 export default /** @type { const } */ ({
@@ -15,12 +15,12 @@ export default /** @type { const } */ ({
       type: 'APP',
       name: {
         en: 'kintone-plugin-template',
-        ja: 'プラグインテンプレート',
+        ja: '入力補助・自動補完プラグイン',
         zh: '插件模板',
       },
       description: {
         en: 'kintone-plugin-template',
-        ja: 'プラグインの説明をここに記載します',
+        ja: '2種類のキャッシュ戦略によって、高速な入力補助を実現します。',
         zh: '插件模板',
       },
       icon: 'icon.png',

@@ -13,6 +13,8 @@ import ExportButton from './export-button';
 import ImportButton from './import-button';
 import ResetButton from './reset-button';
 import { t } from '@/lib/i18n';
+import { produce } from 'immer';
+import { nanoid } from 'nanoid';
 
 type Props = {
   onSaveButtonClick: () => void;
@@ -67,7 +69,14 @@ const Container: FC = () => {
         try {
           const storage = await snapshot.getPromise(storageState);
 
-          storeStorage(storage, () => true);
+          const storageWithId = produce(storage, (draft) => {
+            draft.conditions = draft.conditions.map((condition) => ({
+              ...condition,
+              cacheId: nanoid(),
+            }));
+          });
+
+          storeStorage(storageWithId, () => true);
           enqueueSnackbar(t('config.toast.save'), {
             variant: 'success',
             action: (

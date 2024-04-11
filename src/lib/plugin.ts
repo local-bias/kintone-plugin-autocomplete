@@ -3,9 +3,10 @@ import { produce } from 'immer';
 import { PLUGIN_ID } from './global';
 
 export const getNewCondition = (): Plugin.Condition => ({
-  memo: '',
-  fields: [''],
-  isSampleUIShown: true,
+  cacheId: '',
+  srcAppId: '',
+  srcFieldCode: '',
+  targetFieldCode: '',
 });
 
 /**

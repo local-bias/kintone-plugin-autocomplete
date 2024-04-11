@@ -4,18 +4,17 @@ import { enUS, esES, jaJP, zhCN } from '@mui/material/locale';
 
 export const ui = {
   ja: {
-    'config.condition.memo.title': 'メモ',
-    'config.condition.memo.description':
-      'この設定はサンプルです。プラグインにテキスト情報を保存することができます。',
-    'config.condition.memo.label': '📝 メモ',
-    'config.condition.memo.placeholder': 'テキストを入力',
-    'config.condition.field.title': '対象フィールド',
-    'config.condition.field.description':
-      'この設定はサンプルです。このアプリの設定情報から、フィールド一覧を取得して表示しています。',
-    'config.condition.isSampleUIShown.title': 'スイッチのサンプル',
-    'config.condition.isSampleUIShown.description':
+    'config.condition.targetFieldCode.title': '対象フィールド',
+    'config.condition.targetFieldCode.description':
+      '自動補完を有効にするフィールドを選択してください',
+    'config.condition.targetFieldCode.label': '対象フィールド',
+    'config.condition.srcAppId.title': '参照するアプリ',
+    'config.condition.srcAppId.description': '自動補完の候補として参照するアプリを選択してください',
+    'config.condition.srcAppId.label': '参照アプリ',
+    'config.condition.srcFieldCode.title': '参照するフィールド',
+    'config.condition.srcFieldCode.description':
       '有効・無効などを切り替えるスイッチのサンプルです。ここでは、レコード一覧にサンプルのUIを表示するかどうかを切り替えています。',
-    'config.condition.isSampleUIShown.label': 'サンプルUIを表示',
+    'config.condition.srcFieldCode.label': '参照フィールド',
 
     'config.sidebar.tab.label': '設定',
     'config.button.save': '設定を保存',
