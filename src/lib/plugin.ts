@@ -1,4 +1,9 @@
-import { restoreStorage } from '@konomi-app/kintone-utilities';
+import {
+  getFieldValueAsString,
+  getYuruChara,
+  kintoneAPI,
+  restoreStorage,
+} from '@konomi-app/kintone-utilities';
 import { produce } from 'immer';
 import { PLUGIN_ID } from './global';
 
@@ -74,3 +79,14 @@ export const getConditionField = <T extends keyof Plugin.Condition>(
   }
   return storage.conditions[conditionIndex][key] ?? defaultValue;
 };
+
+export const getAutocompleteValues = (params: {
+  records: kintoneAPI.RecordData[];
+  srcFieldCode: string;
+}) => {
+  const { records, srcFieldCode } = params;
+  return [...new Set(records.map((record) => getFieldValueAsString(record[srcFieldCode])))];
+};
+
+export const getAutocompleteOptions = (values: string[]) =>
+  values.map((v) => ({ label: v, value: v, quickSearch: getYuruChara(v) }));

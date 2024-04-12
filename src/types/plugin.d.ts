@@ -17,4 +17,16 @@ declare namespace Plugin {
       srcFieldCode: string;
     }[];
   };
+
+  type AutocompleteOption = {
+    label: string;
+    value: string;
+    quickSearch: string;
+  };
+
+  type CacheData = CacheDataV1;
+
+  type CacheDataV1 = {
+    version: 1;
+  } & Record<string, string[]>;
 }

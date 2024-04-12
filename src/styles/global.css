@@ -74,7 +74,7 @@
         --input: 220 13% 91%;
         --ring: 224 71.4% 4.1%;
 
-        --radius: 8px;
+        --radius: 4px;
       }
 
       * {
@@ -82,6 +82,16 @@
       }
       body {
         @apply bg-background text-foreground;
+      }
+
+      ::-webkit-scrollbar {
+        @apply w-1 h-1 md:w-2 md:h-2;
+      }
+      ::-webkit-scrollbar-thumb {
+        @apply bg-foreground/40 rounded-full;
+      }
+      ::-webkit-scrollbar-track {
+        @apply bg-transparent;
       }
     }
   }
