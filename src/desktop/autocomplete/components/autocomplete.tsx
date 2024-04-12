@@ -5,7 +5,7 @@ import {
   inputValueState,
   optionCursorState,
 } from '@/desktop/autocomplete/states';
-import { KintoneInput } from './ui/kintone-input';
+import { KintoneInput } from '../../../components/ui/kintone-input';
 
 export function Autocomplete() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,7 +38,6 @@ export function Autocomplete() {
   const handleSelectOption = useRecoilCallback(
     ({ set }) =>
       (selectedOption: Plugin.AutocompleteOption) => {
-        console.log('handleSelectOption', { selectedOption });
         set(inputValueState, selectedOption.label);
         setTimeout(() => {
           inputRef?.current?.blur();

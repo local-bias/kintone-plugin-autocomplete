@@ -5,7 +5,7 @@ import { atom, selector } from 'recoil';
 const PREFIX = 'autocomplete';
 
 export const autoCompleteOptionsState = atom<Plugin.AutocompleteOption[]>({
-  key: `${PREFIX}/options`,
+  key: `${PREFIX}/autoCompleteOptionsState`,
   default: [],
 });
 
@@ -15,7 +15,7 @@ export const pluginConditionState = atom<Plugin.Condition | null>({
 });
 
 export const cacheState = selector<Plugin.CacheData>({
-  key: `${PREFIX}/cache`,
+  key: `${PREFIX}/cacheState`,
   get: () => {
     const item = localStorage.getItem(LOCAL_STORAGE_KEY) || '{}';
     return JSON.parse(item);
@@ -23,7 +23,7 @@ export const cacheState = selector<Plugin.CacheData>({
 });
 
 export const cachedOptionsState = selector<string[]>({
-  key: `${PREFIX}/cachedOptions`,
+  key: `${PREFIX}/cachedOptionsState`,
   get: ({ get }) => {
     const condition = get(pluginConditionState);
     if (!condition) {
@@ -35,7 +35,7 @@ export const cachedOptionsState = selector<string[]>({
 });
 
 export const inputValueState = atom<string>({
-  key: `${PREFIX}/inputValue`,
+  key: `${PREFIX}/inputValueState`,
   default: '',
   effects: [
     ({ onSet, getPromise }) => {
@@ -53,12 +53,12 @@ export const inputValueState = atom<string>({
 });
 
 export const optionCursorState = atom<number>({
-  key: `${PREFIX}/optionCursor`,
+  key: `${PREFIX}/optionCursorState`,
   default: -1,
 });
 
 export const filteredOptionsState = selector({
-  key: `${PREFIX}/filteredOptions`,
+  key: `${PREFIX}/filteredOptionsState`,
   get: ({ get }) => {
     const inputValue = get(inputValueState);
     const options = get(autoCompleteOptionsState);
@@ -68,7 +68,8 @@ export const filteredOptionsState = selector({
     }
 
     const words = getYuruChara(inputValue).split(/\s+/g);
-
-    return options.filter(({ quickSearch }) => words.every((word) => quickSearch.includes(word)));
+    return options
+      .filter(({ quickSearch }) => words.every((word) => quickSearch.includes(word)))
+      .slice(0, 100);
   },
 });
