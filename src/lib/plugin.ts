@@ -86,7 +86,9 @@ export const getAutocompleteValues = (params: {
   srcFieldCode: string;
 }) => {
   const { records, srcFieldCode } = params;
-  return [...new Set(records.map((record) => getFieldValueAsString(record[srcFieldCode])))];
+  return [...new Set(records.map((record) => getFieldValueAsString(record[srcFieldCode])))].filter(
+    (v) => v
+  );
 };
 
 export const getAutocompleteOptions = (values: string[]) =>
