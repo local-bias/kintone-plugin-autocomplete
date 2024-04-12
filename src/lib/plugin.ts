@@ -12,6 +12,7 @@ export const getNewCondition = (): Plugin.Condition => ({
   srcAppId: '',
   srcFieldCode: '',
   targetFieldCode: '',
+  limit: 100,
 });
 
 /**

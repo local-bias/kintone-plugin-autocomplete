@@ -64,7 +64,9 @@ export const filteredOptionsState = selector({
     const options = get(autoCompleteOptionsState);
 
     if (!inputValue) {
-      return options;
+      process.env.NODE_ENV === 'development' &&
+        console.log('入力値が空欄のため、オプションを全て表示します。');
+      return options.slice(0, 100);
     }
 
     const words = getYuruChara(inputValue).split(/\s+/g);

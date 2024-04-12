@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, FocusEventHandler, useRef, useState } from 'react';
+import React, { ChangeEventHandler, FC, FocusEventHandler, useRef, useState } from 'react';
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 import {
   filteredOptionsState,
@@ -6,14 +6,117 @@ import {
   optionCursorState,
 } from '@/desktop/autocomplete/states';
 import { KintoneInput } from '../../../components/ui/kintone-input';
+import styled from '@emotion/styled';
+
+const Input: FC<{
+  inputRef: React.RefObject<HTMLInputElement>;
+  onFocus: FocusEventHandler<HTMLInputElement>;
+  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+}> = ({ inputRef, onFocus, onKeyDown }) => {
+  const value = useRecoilValue(inputValueState);
+
+  const onValueChange: ChangeEventHandler<HTMLInputElement> = useRecoilCallback(
+    ({ set }) =>
+      (event) => {
+        set(inputValueState, event.target.value);
+      },
+    []
+  );
+
+  return (
+    <KintoneInput
+      ref={inputRef}
+      value={value}
+      onChange={onValueChange}
+      onFocus={onFocus}
+      onKeyDown={onKeyDown}
+    />
+  );
+};
+
+const Options: FC<{
+  className?: string;
+  optionsRef: React.RefObject<HTMLDivElement>;
+  open: boolean;
+  handleSelectOption: (selectedOption: Plugin.AutocompleteOption) => void;
+}> = ({ className, optionsRef, open, handleSelectOption }) => {
+  const options = useRecoilValue(filteredOptionsState);
+  const optionCursor = useRecoilValue(optionCursorState);
+
+  if (!open) {
+    return null;
+  }
+
+  return (
+    <div className={className}>
+      <div ref={optionsRef}>
+        {options.length === 0 && <div className='not-found'>候補が見つかりませんでした</div>}
+        {options.map((option, index) => (
+          <div
+            key={option.value}
+            data-cursor={index === optionCursor ? '' : undefined}
+            onClick={() => handleSelectOption(option)}
+            onMouseDown={(event) => event.preventDefault()}
+          >
+            {option.label}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const StyledOptions = styled(Options)`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  padding: 8px 0;
+  font-size: 14px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  > div {
+    overflow-y: hidden;
+    padding-left: 8px;
+    padding-right: 8px;
+    max-height: 400px;
+    &:hover {
+      padding-right: 0;
+      overflow-y: auto;
+    }
+
+    .not-found {
+      padding: 8px;
+      color: #999;
+    }
+
+    & > div:not(.not-found) {
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        background-color: #f5f5f5;
+      }
+      &:active {
+        background-color: #ebebeb;
+      }
+      &[data-cursor] {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+`;
 
 export function Autocomplete() {
   const inputRef = useRef<HTMLInputElement>(null);
   const optionsRef = useRef<HTMLDivElement>(null);
-  const optionCursor = useRecoilValue(optionCursorState);
   const [open, setOpen] = useState(false);
-  const options = useRecoilValue(filteredOptionsState);
-  const value = useRecoilValue(inputValueState);
 
   const onFocus = () => setOpen(true);
   const onBlur: FocusEventHandler<HTMLInputElement> = useRecoilCallback(
@@ -23,14 +126,6 @@ export function Autocomplete() {
           setOpen(false);
           reset(optionCursorState);
         }, 0);
-      },
-    []
-  );
-
-  const onValueChange: ChangeEventHandler<HTMLInputElement> = useRecoilCallback(
-    ({ set }) =>
-      (event) => {
-        set(inputValueState, event.target.value);
       },
     []
   );
@@ -49,6 +144,7 @@ export function Autocomplete() {
   const onKeyDown = useRecoilCallback(
     ({ set, snapshot }) =>
       async (event: React.KeyboardEvent<HTMLInputElement>) => {
+        const options = await snapshot.getPromise(filteredOptionsState);
         if (
           (event.key !== 'ArrowDown' && event.key !== 'ArrowUp' && event.key !== 'Enter') ||
           options.length === 0
@@ -76,41 +172,13 @@ export function Autocomplete() {
           top: (optionsRef.current?.children[optionCursor] as HTMLElement)?.offsetTop,
         });
       },
-    [options]
+    []
   );
 
   return (
     <div className='relative' onBlur={onBlur}>
-      <KintoneInput
-        ref={inputRef}
-        value={value}
-        onChange={onValueChange}
-        onFocus={onFocus}
-        onKeyDown={onKeyDown}
-      />
-      {open && (
-        <div className='absolute top-full left-0 w-full z-50 py-2 text-sm rounded overflow-hidden bg-background/95 backdrop-blur-md border shadow-sm'>
-          <div
-            ref={optionsRef}
-            className='overflow-y-hidden px-2 pr-2 hover:pr-0 hover:overflow-y-auto max-h-[400px]'
-          >
-            {options.length === 0 && (
-              <div className='p-2 text-foreground/70'>候補が見つかりませんでした</div>
-            )}
-            {options.map((option, index) => (
-              <div
-                key={option.value}
-                data-cursor={index === optionCursor ? '' : undefined}
-                onClick={() => handleSelectOption(option)}
-                onMouseDown={(event) => event.preventDefault()}
-                className='p-2 rounded cursor-pointer hover:bg-foreground/5 active:bg-foreground/10 data-[cursor]:bg-foreground/5'
-              >
-                {option.label}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      <Input inputRef={inputRef} onFocus={onFocus} onKeyDown={onKeyDown} />
+      <StyledOptions optionsRef={optionsRef} open={open} handleSelectOption={handleSelectOption} />
     </div>
   );
 }

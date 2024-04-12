@@ -4,16 +4,22 @@ import { ThemeProvider } from '@/lib/components/theme-provider';
 import React, { FC } from 'react';
 import { RecoilRoot } from 'recoil';
 import { useOptionsInitializer } from './hooks/use-options-initializer';
-import { pluginConditionState } from './states';
+import { inputValueState, pluginConditionState } from './states';
+
+type ContainerProps = {
+  condition: Plugin.Condition;
+  initValue: string;
+};
 
 const Component: FC = () => {
   useOptionsInitializer();
   return <Autocomplete />;
 };
 
-const Container: FC<{ condition: Plugin.Condition }> = ({ condition }) => (
+const Container: FC<ContainerProps> = ({ condition, initValue }) => (
   <RecoilRoot
     initializeState={({ set }) => {
+      set(inputValueState, initValue);
       set(pluginConditionState, condition);
     }}
   >

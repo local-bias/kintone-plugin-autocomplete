@@ -15,6 +15,7 @@ declare namespace Plugin {
       targetFieldCode: string;
       srcAppId: string;
       srcFieldCode: string;
+      limit: number;
     }[];
   };
 

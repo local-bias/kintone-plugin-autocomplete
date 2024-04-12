@@ -15,6 +15,9 @@ export const ui = {
     'config.condition.srcFieldCode.description':
       '有効・無効などを切り替えるスイッチのサンプルです。ここでは、レコード一覧にサンプルのUIを表示するかどうかを切り替えています。',
     'config.condition.srcFieldCode.label': '参照フィールド',
+    'config.condition.limit.title': '表示上限',
+    'config.condition.limit.description':
+      '表示する候補の上限を設定します。参照するデータ件数が多すぎるとパフォーマンスに影響しますが、上限を設定することで解決することがあります。あくまで表示されるデータの上限のため、検索は全てのデータに対して実行されます。0を指定した場合、上限は設定されません。',
 
     'config.sidebar.tab.label': '設定',
     'config.button.save': '設定を保存',

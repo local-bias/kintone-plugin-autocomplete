@@ -21,7 +21,9 @@ manager.add(['app.record.create.show', 'app.record.edit.show'], async (event) =>
       continue;
     }
 
-    createRoot(targetField).render(<App condition={condition} />);
+    const initValue = event.record[condition.targetFieldCode].value as string;
+
+    createRoot(targetField).render(<App initValue={initValue} condition={condition} />);
   }
 
   return event;
