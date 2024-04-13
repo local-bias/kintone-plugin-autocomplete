@@ -81,6 +81,10 @@ const StyledOptions = styled(Options)`
   border: 1px solid #e0e0e0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+  @media (min-width: 768px) {
+    min-width: 300px;
+  }
+
   > div {
     overflow-y: hidden;
     padding-left: 8px;

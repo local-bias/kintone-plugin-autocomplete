@@ -15,6 +15,7 @@ manager.add(['app.record.create.show', 'app.record.edit.show'], async (event) =>
 
     const targetFieldId = getMetaFieldId_UNSTABLE(condition.targetFieldCode);
     const targetField =
+      document.querySelector<HTMLDivElement>(`.value-${targetFieldId} > div > div`) ||
       document.querySelector<HTMLDivElement>(`.value-${targetFieldId} > div`) ||
       document.querySelector<HTMLDivElement>(`.value-${targetFieldId}`);
     if (!targetField) {
