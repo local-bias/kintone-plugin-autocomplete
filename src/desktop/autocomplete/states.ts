@@ -61,17 +61,21 @@ export const filteredOptionsState = selector({
   key: `${PREFIX}/filteredOptionsState`,
   get: ({ get }) => {
     const inputValue = get(inputValueState);
+    const condition = get(pluginConditionState);
     const options = get(autoCompleteOptionsState);
+
+    const limit = condition?.limit ? condition.limit : null;
 
     if (!inputValue) {
       process.env.NODE_ENV === 'development' &&
         console.log('入力値が空欄のため、オプションを全て表示します。');
-      return options.slice(0, 100);
+      return limit ? options.slice(0, limit) : options;
     }
 
     const words = getYuruChara(inputValue).split(/\s+/g);
-    return options
-      .filter(({ quickSearch }) => words.every((word) => quickSearch.includes(word)))
-      .slice(0, 100);
+    const filtered = options.filter(({ quickSearch }) =>
+      words.every((word) => quickSearch.includes(word))
+    );
+    return limit ? filtered.slice(0, limit) : filtered;
   },
 });
