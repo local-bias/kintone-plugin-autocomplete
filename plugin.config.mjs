@@ -20,7 +20,7 @@ export default /** @type { const } */ ({
       },
       description: {
         en: 'kintone-plugin-template',
-        ja: '2種類のキャッシュ戦略によって、高速な入力補助を実現します。',
+        ja: '特定のアプリ、特定のフィールドを参照し、入力候補の一覧として表示・選択できるプラグインです。',
         zh: '插件模板',
       },
       icon: 'icon.png',
