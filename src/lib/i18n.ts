@@ -13,7 +13,7 @@ export const ui = {
     'config.condition.srcAppId.label': '参照アプリ',
     'config.condition.srcFieldCode.title': '参照するフィールド',
     'config.condition.srcFieldCode.description':
-      '有効・無効などを切り替えるスイッチのサンプルです。ここでは、レコード一覧にサンプルのUIを表示するかどうかを切り替えています。',
+      '自動補完の候補として参照するフィールドを選択してください',
     'config.condition.srcFieldCode.label': '参照フィールド',
     'config.condition.limit.title': '表示上限',
     'config.condition.limit.description':
