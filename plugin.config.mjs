@@ -4,10 +4,23 @@ const cdn = 'https://kintone-plugin.konomi.app';
 const key = 'autocomplete';
 const localhost = 'https://127.0.0.1:35327';
 
-/** @satisfies { import('@konomi-app/kintone-utilities').PluginConfig } */
+/** @satisfies { Plugin.Meta.Config } */
 export default /** @type { const } */ ({
   id: `ribbit-kintone-plugin-${key}`,
   pluginReleasePageUrl: `https://ribbit.konomi.app/kintone-plugin/`,
+  server: {
+    port: 35327,
+  },
+  lint: {
+    build: true,
+  },
+  tailwind: {
+    css: 'src/styles/global.css',
+    config: {
+      desktop: 'tailwind.config.desktop.mjs',
+      config: 'tailwind.config.config.mjs',
+    },
+  },
   manifest: {
     base: {
       manifest_version: 1,
