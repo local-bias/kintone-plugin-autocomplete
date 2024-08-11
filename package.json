@@ -19,8 +19,8 @@
     "@konomi-app/kintone-utilities-react": "^1.16.0",
     "@konomi-app/ui": "^2.2.4",
     "@konomi-app/ui-react": "^1.1.1",
-    "@mui/icons-material": "5.16.6",
-    "@mui/material": "5.16.6",
+    "@mui/icons-material": "5.16.7",
+    "@mui/material": "5.16.7",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-popover": "^1.1.1",
@@ -29,7 +29,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "immer": "^10.1.1",
-    "lucide-react": "^0.424.0",
+    "lucide-react": "^0.427.0",
     "luxon": "^3.5.0",
     "nanoid": "^5.0.7",
     "notistack": "^3.0.1",
@@ -48,7 +48,7 @@
     "@types/react-dom": "18.3.0",
     "concurrently": "^8.2.2",
     "dotenv": "16.4.5",
-    "tailwindcss": "^3.4.7",
+    "tailwindcss": "^3.4.9",
     "typescript": "^5.5.4"
   }
 }
