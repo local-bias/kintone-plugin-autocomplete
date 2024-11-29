@@ -9,12 +9,12 @@ import {
 } from '@konomi-app/kintone-utilities-react';
 import { LoaderWithLabel } from '@konomi-app/ui-react';
 import { SnackbarProvider } from 'notistack';
-import React, { FC, Suspense } from 'react';
+import { FC, Suspense } from 'react';
 import { RecoilRoot } from 'recoil';
 import config from 'plugin.config.mjs';
 import Footer from './components/model/footer';
 import Form from './components/model/form';
-import Sidebar from './components/model/sidebar';
+import Sidebar from './components/sidebar';
 import { ThemeProvider } from '@/lib/components/theme-provider';
 
 const Component: FC = () => {

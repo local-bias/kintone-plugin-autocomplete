@@ -1,3 +1,4 @@
+import { PluginCondition } from '@/lib/plugin';
 import { LOCAL_STORAGE_KEY } from '@/lib/static';
 import { getCurrentRecord, getYuruChara, setCurrentRecord } from '@konomi-app/kintone-utilities';
 import { atom, selector } from 'recoil';
@@ -9,7 +10,7 @@ export const autoCompleteOptionsState = atom<Plugin.AutocompleteOption[]>({
   default: [],
 });
 
-export const pluginConditionState = atom<Plugin.Condition | null>({
+export const pluginConditionState = atom<PluginCondition | null>({
   key: `${PREFIX}/pluginConditionState`,
   default: null,
 });

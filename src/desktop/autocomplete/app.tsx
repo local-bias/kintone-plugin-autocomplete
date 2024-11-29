@@ -1,13 +1,14 @@
 import { Autocomplete } from '@/desktop/autocomplete/components/autocomplete';
 import { PluginErrorBoundary } from '@/lib/components/error-boundary';
 import { ThemeProvider } from '@/lib/components/theme-provider';
+import { PluginCondition } from '@/lib/plugin';
 import React, { FC } from 'react';
 import { RecoilRoot } from 'recoil';
 import { useOptionsInitializer } from './hooks/use-options-initializer';
 import { inputValueState, pluginConditionState } from './states';
 
 type ContainerProps = {
-  condition: Plugin.Condition;
+  condition: PluginCondition;
   initValue: string;
 };
 
